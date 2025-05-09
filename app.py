@@ -4,4 +4,5 @@ app = Flask(__name__)
 
 if __name__ == "__main__":
     dbops.createTables()
+    dbops.addUser("admin", "admin", True)
     app.run(debug=True)
