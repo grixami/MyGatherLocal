@@ -43,5 +43,6 @@
 html, body { /* makes it so the navbar has no whitespace between it and thee sides/top */
     margin: 0;
     padding: 0;
+    background-color: lightgray;
 }
 

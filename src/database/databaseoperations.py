@@ -134,8 +134,45 @@ def checkPassword(username: str, password: str): # compares md5 hash of the pass
         if password_md5 == stored_pass:
             return(True, "Password Correct")
         else:
-            return(True, "Password Incorrect")
+            return(False, "Password Incorrect")
         
+        
+
+    except mysql.connector.Error as e:
+        print(f"Error >> {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def updatePassword(username: str, password: str): # compares md5 hash of the password the user entered to the stored password and returns if it is correct or not
+    try:
+        password_md5 = hashlib.md5(password.encode()).hexdigest()
+        conn = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USERNAME,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        response = cursor.fetchone()
+        
+        if response is not None:
+            return(False, "Username already exists")
+        
+        cursor.execute("""
+            UPDATE users
+            SET password = %s
+            WHERE username = %s""", (password_md5, username)
+        )
+        conn.commit()
+
+        return(True, "Password change sucessfull")
         
 
     except mysql.connector.Error as e:

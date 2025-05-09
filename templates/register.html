@@ -10,7 +10,7 @@
 <body>
     <div class="navbar"> <!-- copied from index -->
         <div class="navbar-left">
-            <p>MyGatherLocal Register</p>
+            <a href="/"><p>MyGatherLocal Login</p></a>
         </div>
         <div class="navbar-right">
             <li><a href="/auth/login">Login</a></li>
@@ -19,17 +19,46 @@
         </div>
     </div>
     <div class="registerform">
-        <form>
+        <form id="registerformid">
         <label for="username">username:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="username" name="username" required>
         <br><br>
 
         <label for="password">password:</label>
         <input type="password" id="password" name="password" required>
-        </form>
         <br><br>
-
-        <input type="submit" value="Submit">
+                
+        <input type="submit" value="Register">
+        </form>
     </div>
+    <p id="message"></p>
 </body>
+<script>
+  document
+    .getElementById("registerformid")
+    .addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form); 
+
+      try {
+        const resp = await fetch("/api/auth/register", {
+          method: "POST",
+          body: data,
+        });
+
+        if (!resp.ok) {
+          const err = await resp.text();
+          throw new Error(err || resp.statusText);
+        }
+
+        const result = await resp.json();
+        window.location.replace("/auth/login")
+      } catch (err) {
+        document.getElementById("message").textContent =
+          "Error: " + err.message;
+      }
+    });
+</script>
+
 </html>

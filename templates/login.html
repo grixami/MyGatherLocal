@@ -10,7 +10,7 @@
 <body>
     <div class="navbar"> <!-- copied from index -->
         <div class="navbar-left">
-            <p>MyGatherLocal Login</p>
+            <a href="/"><p>MyGatherLocal Login</p></a>
         </div>
         <div class="navbar-right">
             <li><a href="/auth/login">Login</a></li>
@@ -19,17 +19,53 @@
         </div>
     </div>
     <div class="loginform">
-        <form>
+        <form id="loginformid">
         <label for="username">username:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="username" name="username" required>
         <br><br>
 
         <label for="password">password:</label>
         <input type="password" id="password" name="password" required>
-        </form>
         <br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Login">
+        </form>
+        <p id="message"></p>
     </div>
 </body>
+<script>
+  document
+    .getElementById("loginformid")
+    .addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form); 
+
+      try {
+        const resp = await fetch("/api/auth/login", {
+          method: "POST",
+          body: data,
+        });
+
+        if (!resp.ok) {
+          const err = await resp.text();
+          throw new Error(err || resp.statusText);
+        }
+
+        const result = await resp.json();
+        if (result.success) {
+            const username = result.username;  // Get the username from the response
+            document.cookie = `username=${username}; path=/;`;
+            window.location.href = "/";  // Redirect after successful login
+          } else {
+            document.getElementById("message").textContent = "Error: " + result.message;
+          }
+
+
+      } catch (err) {
+        document.getElementById("message").textContent =
+          "Error: " + err.message;
+      }
+    });
+</script>
 </html>

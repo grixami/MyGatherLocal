@@ -33,6 +33,13 @@
     padding: 10px 15px; /* kinda makes it look like buttons, i suck at css */
 }
 
+
+.navbar-left a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
 .navbar-right li a:hover {
     background-color: #575757;
     border-radius: 7px;
@@ -41,10 +48,15 @@
 html, body { /* makes it so the navbar has no whitespace between it and thee sides/top */
     margin: 0;
     padding: 0;
+    background-color: lightgray;
 }
 
 .loginform {
-    padding-top: 40px;
-    justify-content: center;
-    display: flex;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 300px;
+    background-color: #575757;
+    width: fit-content;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
