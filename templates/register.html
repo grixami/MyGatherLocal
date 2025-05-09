@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- Page where users register -->
+<!DOCTYPE html> <!-- Page where users login, will fix css later lol -->
 <html lang="en">
 <head>
 
@@ -8,6 +8,28 @@
             
 </head>
 <body>
+    <div class="navbar"> <!-- copied from index -->
+        <div class="navbar-left">
+            <p>MyGatherLocal Register</p>
+        </div>
+        <div class="navbar-right">
+            <li><a href="/auth/login">Login</a></li>
+            <li><a href="/auth/signup">Sign Up</a></li>
+            <li><a href="/events">Events</a></li>
+        </div>
+    </div>
+    <div class="registerform">
+        <form>
+        <label for="username">username:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
 
+        <label for="password">password:</label>
+        <input type="password" id="password" name="password" required>
+        </form>
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </div>
 </body>
 </html>

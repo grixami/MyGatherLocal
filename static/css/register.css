@@ -1,0 +1,50 @@
+.navbar {
+    background-color: gray;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.navbar-left {
+    color: white;
+    font-size: 25px;
+}
+
+.navbar-right {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.navbar-right li {
+    display: inline;
+    padding: 14px 20px;
+    margin-left: 10px;
+    font-size: 25px;
+}
+
+.navbar-right li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    background-color: #686868;
+    border-radius: 7px;
+    padding: 10px 15px; /* kinda makes it look like buttons, i suck at css */
+}
+
+.navbar-right li a:hover {
+    background-color: #575757;
+    border-radius: 7px;
+}
+
+html, body { /* makes it so the navbar has no whitespace between it and thee sides/top */
+    margin: 0;
+    padding: 0;
+}
+
+.registerform {
+    padding-top: 40px;
+    justify-content: center;
+    display: flex;
+}

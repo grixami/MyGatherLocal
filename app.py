@@ -9,7 +9,6 @@ def index():
 @app.route("/api/auth/register", methods=["POST"])
 def api_auth_register():
     data = request.get_json()
-    print(data)
     username = data.get("username")
     password = data.get("password")
 
@@ -22,6 +21,14 @@ def api_auth_register():
 @app.route("/explore")
 def explore():
     return render_template("TODO.html")
+
+@app.route("/auth/login")
+def auth_login():
+    return render_template("login.html")
+
+@app.route("/auth/signup")
+def auth_register():
+    return render_template("register.html")
 
 if __name__ == "__main__":
     dbops.createTables()
