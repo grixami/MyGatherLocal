@@ -82,6 +82,13 @@ def addUser(username: str, password: str, is_admin: bool): # inserts a user into
 
         cursor = conn.cursor()
 
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        response = cursor.fetchone()
+        
+        if response is not None:
+            return(False, "User already exists found")
+
+
         cursor.execute("""
             INSERT INTO users (username, password, is_admin)
             VALUES (%s, %s, %s)
@@ -89,8 +96,11 @@ def addUser(username: str, password: str, is_admin: bool): # inserts a user into
 
         conn.commit()
 
+        return(True, "Created User")
+
     except mysql.connector.Error as e:
         print(f"Error >> {e}")
+        return(False, "Server Error Occured")
 
     finally:
         if cursor:
@@ -98,7 +108,7 @@ def addUser(username: str, password: str, is_admin: bool): # inserts a user into
         if conn:
             conn.close()
 
-def checkPassword(username: str, password: str) -> bool: # compares md5 hash of the password the user entered to the stored password and returns if it is correct or not
+def checkPassword(username: str, password: str): # compares md5 hash of the password the user entered to the stored password and returns if it is correct or not
     try:
         password_md5 = hashlib.md5(password.encode()).hexdigest()
         conn = mysql.connector.connect(
