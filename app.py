@@ -4,5 +4,5 @@ app = Flask(__name__)
 
 if __name__ == "__main__":
     dbops.createTables()
-    dbops.addUser("admin", "admin", True)
+    dbops.addUser("admin", "admin", True) # Creates default user, you should change the password asap
     app.run(debug=True)
